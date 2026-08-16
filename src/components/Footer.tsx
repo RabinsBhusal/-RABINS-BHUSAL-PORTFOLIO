@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Github, Linkedin, ArrowUp, Code2, Mail, Phone, FileText, MapPin } from 'lucide-react';
+import { Github, Linkedin, ArrowUp, Mail, FileText, MapPin } from 'lucide-react';
 import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface FooterProps {
   onOpenCV: () => void;
-  onOpenScriptModal: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenCV, onOpenScriptModal }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenCV }) => {
   const [year, setYear] = useState<number>(new Date().getFullYear());
 
   useEffect(() => {
-    // Ensures document.getElementById('year') executes exactly as specified in the imported JS snippet
     const yearElem = document.getElementById('year');
     const currentYear = new Date().getFullYear();
     if (yearElem) {
@@ -41,7 +39,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenCV, onOpenScriptModal }) =
           </p>
         </div>
 
-        {/* Links & Inspector */}
+        {/* Quick Links */}
         <div className="flex flex-wrap items-center justify-center gap-6 text-xs font-mono text-neutral-400">
           <button
             onClick={onOpenCV}
@@ -62,22 +60,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenCV, onOpenScriptModal }) =
           </a>
 
           <a
-            href={PERSONAL_INFO.githubUrl}
-            target="_blank"
-            rel="noreferrer"
+            href={`mailto:${PERSONAL_INFO.email}`}
             className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
           >
-            <Github className="w-3.5 h-3.5" />
-            <span>GitHub</span>
+            <Mail className="w-3.5 h-3.5" />
+            <span>Email</span>
           </a>
-
-          <button
-            onClick={onOpenScriptModal}
-            className="hover:text-emerald-400 transition-colors flex items-center gap-1.5"
-          >
-            <Code2 className="w-3.5 h-3.5" />
-            <span>JS Engine</span>
-          </button>
 
           <button
             onClick={scrollToTop}

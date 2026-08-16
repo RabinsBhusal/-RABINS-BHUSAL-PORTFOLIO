@@ -15,12 +15,10 @@ import { CertificationsAndEducation } from './components/CertificationsAndEducat
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { CVModal } from './components/CVModal';
-import { ScriptInspectorModal } from './components/ScriptInspectorModal';
 import { useParallaxAndReveals } from './hooks/useParallaxAndReveals';
 
 export default function App() {
   const [isCVModalOpen, setIsCVModalOpen] = useState<boolean>(false);
-  const [isScriptModalOpen, setIsScriptModalOpen] = useState<boolean>(false);
 
   // Initialize IntersectionObserver reveals, scroll parallax, and pointermove tracking
   useParallaxAndReveals();
@@ -30,7 +28,6 @@ export default function App() {
       {/* Top Executive Navigation */}
       <Navbar
         onOpenCV={() => setIsCVModalOpen(true)}
-        onOpenScriptModal={() => setIsScriptModalOpen(true)}
       />
 
       {/* Main Interactive Sections */}
@@ -38,7 +35,6 @@ export default function App() {
         {/* Executive Hero */}
         <Hero
           onOpenCV={() => setIsCVModalOpen(true)}
-          onOpenScriptModal={() => setIsScriptModalOpen(true)}
         />
 
         {/* LinkedIn Profile & Endorsements Card */}
@@ -68,19 +64,12 @@ export default function App() {
       {/* Footer with dynamic #year synchronization */}
       <Footer
         onOpenCV={() => setIsCVModalOpen(true)}
-        onOpenScriptModal={() => setIsScriptModalOpen(true)}
       />
 
-      {/* 2-Page Print/Export Ready Official CV Modal */}
+      {/* Full Print/Export Ready Official CV Modal */}
       <CVModal
         isOpen={isCVModalOpen}
         onClose={() => setIsCVModalOpen(false)}
-      />
-
-      {/* JavaScript Engine & Logic Inspector */}
-      <ScriptInspectorModal
-        isOpen={isScriptModalOpen}
-        onClose={() => setIsScriptModalOpen(false)}
       />
     </div>
   );

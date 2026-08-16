@@ -17,15 +17,14 @@ import { PERSONAL_INFO } from '../data/portfolioData';
 
 interface HeroProps {
   onOpenCV: () => void;
-  onOpenScriptModal: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ onOpenCV, onOpenScriptModal }) => {
+export const Hero: React.FC<HeroProps> = ({ onOpenCV }) => {
   return (
     <section
       id="top"
       data-scroll-bg="0.04"
-      className="relative min-h-[92vh] pt-28 pb-16 px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center overflow-hidden"
+      className="relative min-h-[90vh] pt-28 pb-16 px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center overflow-hidden"
     >
       {/* Background Gradients & Professional Grid Pattern */}
       <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
@@ -41,7 +40,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCV, onOpenScriptModal }) => {
         />
       </div>
 
-      {/* Floating Interactive Hero Marks with Mouse & Scroll Parallax */}
+      {/* Floating Interactive Hero Marks */}
       {/* Mark 1: Top Left Accounting Equation */}
       <div
         className="hero-mark parallax absolute top-28 left-[6%] hidden lg:flex items-center gap-2 px-3.5 py-2 rounded-xl bg-neutral-900/90 border border-neutral-800 text-xs font-mono text-emerald-400 shadow-xl shadow-black/40"
