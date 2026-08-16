@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-display: 'Syne', system-ui, sans-serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-mono: 'Fira Code', monospace;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #090a0f;
+    color: #e2e8f0;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Parallax and Mouse Tracking CSS Variables */
+.parallax {
+  transform: translate3d(var(--mouse-x, 0px), calc(var(--parallax-y, 0px) + var(--mouse-y, 0px)), 0);
+  transition: transform 0.15s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: transform;
+}
+
+[data-scroll-bg] {
+  transform: translateY(var(--scroll-bg-y, 0px));
+  will-change: transform;
+}
+
+/* Reveal on Scroll matching IntersectionObserver in script */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 {
+  transition-delay: 100ms;
+}
+
+.reveal-delay-2 {
+  transition-delay: 200ms;
+}
+
+.reveal-delay-3 {
+  transition-delay: 300ms;
+}
+
+/* Heatmap cell levels */
+.heat-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 2.5px;
+  transition: transform 0.15s ease, outline 0.15s ease, filter 0.15s ease;
+  display: inline-block;
+}
+
+.heat-cell:hover {
+  transform: scale(1.4);
+  z-index: 10;
+  outline: 1.5px solid #38bdf8;
+  filter: brightness(1.2);
+}
+
+.level-0 {
+  background-color: #1e293b;
+}
+
+.level-1 {
+  background-color: #0e4429;
+}
+
+.level-2 {
+  background-color: #006d32;
+}
+
+.level-3 {
+  background-color: #26a641;
+}
+
+.level-4 {
+  background-color: #39d353;
+  box-shadow: 0 0 8px rgba(57, 211, 83, 0.4);
+}
+
+/* Print Rules for CV export */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #111827 !important;
+  }
+  header, footer, nav, #script-inspector-modal, button:not(.print-include) {
+    display: none !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
