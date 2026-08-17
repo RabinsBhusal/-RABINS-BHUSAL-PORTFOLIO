@@ -111,3 +111,110 @@
     transform: none !important;
   }
 }
+
+/* 📊 Financial Spreadsheet (Excel-like) Design Utilities */
+.sheet-grid-backdrop {
+  background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+.spreadsheet-header-cell {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-align: center;
+  font-weight: 600;
+  padding: 2px 6px;
+  user-select: none;
+}
+
+.spreadsheet-row-index {
+  background-color: #161b22;
+  border-right: 2px solid #30363d;
+  border-bottom: 1px solid #21262d;
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  padding: 4px;
+  min-width: 24px;
+  user-select: none;
+}
+
+.spreadsheet-cell-data {
+  border: 1px solid #21262d;
+  padding: 6px 12px;
+  font-size: 12px;
+  transition: all 0.1s ease;
+}
+
+.spreadsheet-cell-data:hover {
+  background-color: rgba(16, 124, 65, 0.08) !important;
+  outline: 1px solid #107c41;
+}
+
+.spreadsheet-card {
+  border: 2px solid #30363d;
+  border-radius: 6px;
+  overflow-hidden: scroll;
+  background-color: #0d1117;
+}
+
+/* Excel formula bar design */
+.formula-bar-container {
+  display: flex;
+  align-items: center;
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #e6edf3;
+}
+
+.formula-bar-fx {
+  background-color: #21262d;
+  color: #107c41;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-right: 1px solid #30363d;
+  font-style: italic;
+  user-select: none;
+}
+
+/* Excel-like Tabs styling */
+.excel-tab {
+  position: relative;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-left: 1px solid #30363d;
+  border-right: 1px solid #30363d;
+  border-top: 2px solid transparent;
+  background-color: #161b22;
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 16px;
+  transition: all 0.15s ease;
+  bottom: -1px;
+}
+
+.excel-tab-active {
+  background-color: #0d1117;
+  color: #107c41;
+  border-top: 2.5px solid #107c41;
+  border-bottom: 1px solid #0d1117;
+  font-weight: 700;
+}
+
+.excel-tab:hover:not(.excel-tab-active) {
+  background-color: #21262d;
+  color: #c9d1d9;
+}
+

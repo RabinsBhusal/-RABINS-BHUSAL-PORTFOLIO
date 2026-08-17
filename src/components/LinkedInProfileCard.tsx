@@ -57,9 +57,9 @@ export const LinkedInProfileCard: React.FC<LinkedInProfileCardProps> = ({ onOpen
       {/* LinkedIn Profile Card Container */}
       <div className="reveal rounded-3xl bg-neutral-900 border border-neutral-800 shadow-2xl overflow-hidden">
         {/* Profile Banner */}
-        <div className="h-44 sm:h-56 w-full bg-gradient-to-r from-emerald-900 via-neutral-900 to-sky-950 relative overflow-hidden">
-          {/* Subtle grid pattern */}
-          <div className="absolute inset-0 opacity-20 bg-[radial-gradient(#10b981_1px,transparent_1px)] [background-size:16px_16px]" />
+        <div className="h-44 sm:h-56 w-full bg-gradient-to-r from-emerald-950 via-neutral-900 to-neutral-950 border-b border-[#30363d] relative overflow-hidden">
+          {/* Subtle spreadsheet grid pattern */}
+          <div className="absolute inset-0 opacity-30 sheet-grid-backdrop" />
           
           <div className="absolute bottom-4 right-4 flex items-center gap-2">
             <span className="px-3 py-1 rounded-full bg-neutral-950/80 backdrop-blur-md text-emerald-400 text-xs font-mono border border-emerald-500/30 flex items-center gap-1.5 shadow-sm">

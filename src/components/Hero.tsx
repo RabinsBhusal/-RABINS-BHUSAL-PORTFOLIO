@@ -31,13 +31,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCV }) => {
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[450px] bg-emerald-500/10 rounded-full blur-3xl" />
         <div className="absolute top-1/3 -left-32 w-[450px] h-[450px] bg-sky-500/10 rounded-full blur-3xl" />
         <div className="absolute top-1/2 -right-32 w-[450px] h-[450px] bg-indigo-500/10 rounded-full blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0)`,
-            backgroundSize: '32px 32px',
-          }}
-        />
+        <div className="absolute inset-0 opacity-[0.08] sheet-grid-backdrop" />
       </div>
 
       {/* Floating Interactive Hero Marks */}

@@ -51,19 +51,17 @@ export const FinanceProjects: React.FC = () => {
         </p>
       </div>
 
-      {/* Category Pills */}
-      <div className="reveal reveal-delay-1 flex items-center gap-2 overflow-x-auto pb-3 mb-8 scrollbar-none">
-        {categories.map((cat) => (
+      {/* Category Pills styled as Excel tabs */}
+      <div className="reveal reveal-delay-1 flex items-end overflow-x-auto border-b border-[#30363d] mb-8 gap-1 px-1 scrollbar-none">
+        {categories.map((cat, idx) => (
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-3.5 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-all ${
-              selectedCategory === cat
-                ? 'bg-emerald-500 text-neutral-950 font-bold shadow-sm shadow-emerald-500/20'
-                : 'bg-neutral-900 text-neutral-400 border border-neutral-800 hover:text-neutral-200'
+            className={`excel-tab whitespace-nowrap ${
+              selectedCategory === cat ? 'excel-tab-active' : ''
             }`}
           >
-            {cat}
+            {idx === 0 ? '📁' : '📊'} {cat}
           </button>
         ))}
       </div>
