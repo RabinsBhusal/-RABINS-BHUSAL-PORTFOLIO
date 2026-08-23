@@ -13,6 +13,7 @@ import {
   Settings,
   HelpCircle
 } from 'lucide-react';
+import { FinanceSyncController } from './FinanceSyncController';
 
 export const FinancialToolkit: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'statements' | 'uktax' | 'ratios'>('statements');
@@ -26,6 +27,18 @@ export const FinancialToolkit: React.FC = () => {
   const [cashStart, setCashStart] = useState<number>(80000);
   const [capex, setCapex] = useState<number>(30000);
   const [debtRepayment, setDebtRepayment] = useState<number>(15000);
+
+  // Sync current active parameters globally for context-aware chatbot
+  React.useEffect(() => {
+    (window as any).currentFinancialState = {
+      revenue,
+      cogsPercent,
+      opexPercent,
+      capex,
+      depreciation,
+      taxRate
+    };
+  }, [revenue, cogsPercent, opexPercent, capex, depreciation, taxRate]);
 
   // Active cell/formula context for the formula bar
   const [activeFormula, setActiveFormula] = useState<string>('B1 (Revenue - User Parameter input)');
@@ -738,6 +751,24 @@ export const FinancialToolkit: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Recruiter & Workspace Sync Controller */}
+      <FinanceSyncController
+        revenue={revenue}
+        cogsPercent={cogsPercent}
+        opexPercent={opexPercent}
+        capex={capex}
+        depreciation={depreciation}
+        taxRate={taxRate}
+        onApplyScenario={(params) => {
+          setRevenue(params.revenue);
+          setCogsPercent(params.cogsPercent);
+          setOpexPercent(params.opexPercent);
+          setCapex(params.capex);
+          setDepreciation(params.depreciation);
+          setTaxRate(params.taxRate);
+        }}
+      />
     </section>
   );
 };

@@ -114,20 +114,34 @@ export const CVModal: React.FC<CVModalProps> = ({ isOpen, onClose }) => {
 
         {/* Printable CV Document Content */}
         <div className="p-6 sm:p-10 md:p-14 space-y-8 font-sans text-neutral-900 print:p-0 print:space-y-6">
-          {/* Header */}
+          {/* Header with Photo */}
           <div className="border-b-2 border-neutral-900 pb-5">
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight uppercase text-neutral-950 font-sans">
-                {PERSONAL_INFO.name}
-              </h1>
-              <span className="text-xs sm:text-sm font-semibold text-emerald-800 uppercase tracking-wide">
-                BSc (Hons) 1st Class • ACCA Candidate
-              </span>
-            </div>
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div className="space-y-1">
+                <div className="flex flex-col sm:flex-row sm:items-baseline gap-2">
+                  <h1 className="text-3xl sm:text-4xl font-bold tracking-tight uppercase text-neutral-950 font-sans">
+                    {PERSONAL_INFO.name}
+                  </h1>
+                  <span className="text-xs sm:text-sm font-semibold text-emerald-800 uppercase tracking-wide">
+                    BSc (Hons) 1st Class • ACCA Candidate
+                  </span>
+                </div>
 
-            <p className="text-sm font-medium text-neutral-800 mt-1">
-              {PERSONAL_INFO.title}
-            </p>
+                <p className="text-sm font-medium text-neutral-800">
+                  {PERSONAL_INFO.title}
+                </p>
+              </div>
+
+              {/* CV Profile Photo */}
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden border-2 border-neutral-900 shadow-sm shrink-0">
+                <img
+                  src={PERSONAL_INFO.avatarUrl}
+                  alt={PERSONAL_INFO.name}
+                  referrerPolicy="no-referrer"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
 
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-neutral-700 mt-3.5 font-mono pt-2 border-t border-neutral-200">
               <span className="flex items-center gap-1">

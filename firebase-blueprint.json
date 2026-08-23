@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "savedModel": {
+      "title": "savedModel",
+      "description": "Represents a saved interactive financial model workbook state.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The Google User ID of the owner of this saved configuration."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "User-assigned title for this saved model state."
+        },
+        "revenue": {
+          "type": "number",
+          "description": "Annual revenue variable."
+        },
+        "cogsPercent": {
+          "type": "number",
+          "description": "COGS percentage parameter."
+        },
+        "opexPercent": {
+          "type": "number",
+          "description": "Operating expenses percentage parameter."
+        },
+        "capex": {
+          "type": "number",
+          "description": "CapEx reinvestment parameter."
+        },
+        "depreciation": {
+          "type": "number",
+          "description": "Depreciation fee parameter."
+        },
+        "taxRate": {
+          "type": "number",
+          "description": "Tax rate percentage parameter."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of model creation."
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last update."
+        }
+      },
+      "required": ["uid", "title", "revenue", "cogsPercent", "opexPercent", "capex", "depreciation", "taxRate", "createdAt", "updatedAt"]
+    },
+    "syncLog": {
+      "title": "syncLog",
+      "description": "Represents a trace log of Workspace sync activities (e.g., sheets exported, emails sent, docs created).",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The Google User ID of the actor."
+        },
+        "actionType": {
+          "type": "string",
+          "enum": ["SHEETS_EXPORT", "GMAIL_SEND", "DOCS_EXPORT", "CALENDAR_CREATE"],
+          "description": "Type of sync action performed."
+        },
+        "details": {
+          "type": "string",
+          "maxLength": 1000,
+          "description": "Detailed log message or description."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "ISO timestamp of the action."
+        }
+      },
+      "required": ["uid", "actionType", "details", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/saved_models/{modelId}": {
+      "schema": "#/entities/savedModel",
+      "description": "Collection of user-saved financial models."
+    },
+    "/sync_logs/{logId}": {
+      "schema": "#/entities/syncLog",
+      "description": "Collection of workspace action trace logs."
+    }
+  }
+}

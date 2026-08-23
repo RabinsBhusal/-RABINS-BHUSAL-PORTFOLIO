@@ -9,6 +9,18 @@ import { useEffect } from 'react';
 export function useParallaxAndReveals() {
   useEffect(() => {
     // 1. Intersection Observer for .reveal elements
+    const observedElements = new WeakSet<Element>();
+
+    const checkElementVisibility = (element: Element) => {
+      const rect = element.getBoundingClientRect();
+      // If already within or intersecting viewport, reveal immediately
+      if (rect.top < window.innerHeight + 50 && rect.bottom > -50) {
+        element.classList.add('is-visible');
+        return true;
+      }
+      return false;
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -18,13 +30,46 @@ export function useParallaxAndReveals() {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.05, rootMargin: '60px 0px' }
     );
 
-    const revealElements = document.querySelectorAll('.reveal');
-    revealElements.forEach((element) => observer.observe(element));
+    const observeElement = (element: Element) => {
+      if (observedElements.has(element)) return;
+      observedElements.add(element);
 
-    // 2. Scroll Parallax for .parallax and [data-scroll-bg]
+      if (checkElementVisibility(element)) {
+        return;
+      }
+      observer.observe(element);
+    };
+
+    const scanAndObserve = () => {
+      const revealElements = document.querySelectorAll('.reveal:not(.is-visible)');
+      revealElements.forEach((element) => observeElement(element));
+    };
+
+    scanAndObserve();
+
+    // 2. MutationObserver to handle dynamically mounted React elements
+    const mutationObserver = new MutationObserver((mutations) => {
+      let shouldScan = false;
+      for (const mutation of mutations) {
+        if (mutation.addedNodes.length > 0) {
+          shouldScan = true;
+          break;
+        }
+      }
+      if (shouldScan) {
+        scanAndObserve();
+      }
+    });
+
+    mutationObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+
+    // 3. Scroll Parallax for .parallax and [data-scroll-bg]
     let ticking = false;
 
     function updateParallax() {
@@ -57,7 +102,7 @@ export function useParallaxAndReveals() {
     window.addEventListener('scroll', onScroll, { passive: true });
     updateParallax();
 
-    // 3. Pointermove for .hero-mark.parallax
+    // 4. Pointermove for .hero-mark.parallax
     const onPointerMove = (event: PointerEvent) => {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const x = event.clientX - window.innerWidth / 2;
@@ -75,6 +120,7 @@ export function useParallaxAndReveals() {
 
     return () => {
       observer.disconnect();
+      mutationObserver.disconnect();
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('pointermove', onPointerMove);
     };

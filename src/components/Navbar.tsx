@@ -13,7 +13,7 @@ import {
   X,
   Mail
 } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
+import { PERSONAL_INFO, PORTFOLIO_PHOTOS } from '../data/portfolioData';
 
 interface NavbarProps {
   onOpenCV: () => void;
@@ -27,8 +27,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCV }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
         {/* Brand identity */}
         <a href="#top" className="flex items-center gap-3 group shrink-0">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-emerald-500/20 to-sky-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 font-mono font-bold text-sm group-hover:border-emerald-400 transition-colors">
-            RB
+          <div className="relative w-9 h-9 rounded-full overflow-hidden border-2 border-emerald-500/40 group-hover:border-emerald-400 transition-colors shadow-sm shrink-0">
+            <img
+              src={PORTFOLIO_PHOTOS.headshot}
+              alt={PERSONAL_INFO.name}
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+            <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-neutral-950" />
           </div>
           <div className="flex flex-col">
             <span className="font-display font-bold text-sm sm:text-base text-neutral-100 group-hover:text-emerald-400 transition-colors flex items-center gap-1.5 whitespace-nowrap">
@@ -78,12 +84,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCV }) => {
             className="hover:text-emerald-400 transition-colors py-1 whitespace-nowrap"
           >
             ACCA & Degrees
-          </a>
-          <a
-            href="#contact"
-            className="hover:text-emerald-400 transition-colors py-1 whitespace-nowrap"
-          >
-            Contact
           </a>
         </nav>
 

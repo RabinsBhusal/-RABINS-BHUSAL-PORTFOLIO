@@ -7,8 +7,46 @@ import {
   LanguageItem,
 } from '../types';
 
+export const PORTFOLIO_PHOTOS = {
+  headshot: 'https://firebasestorage.googleapis.com/v0/b/project-b9727ea3-0bd2-4396-9ba.firebasestorage.app/o/Portfolio%2F1725216171602.jpg?alt=media&token=db040920-a3e6-4e2f-9e5d-b11fca65138f',
+  portrait: 'https://firebasestorage.googleapis.com/v0/b/project-b9727ea3-0bd2-4396-9ba.firebasestorage.app/o/Portfolio%2F1766183020815.jpg?alt=media&token=9aba4f5f-4c8f-4dac-a0c0-d8f3b0b5b313',
+  event: 'https://firebasestorage.googleapis.com/v0/b/project-b9727ea3-0bd2-4396-9ba.firebasestorage.app/o/Portfolio%2F1766312020783.jpg?alt=media&token=9ffc717b-4568-4a9a-82a5-4abcd677b5f8',
+  academic: 'https://firebasestorage.googleapis.com/v0/b/project-b9727ea3-0bd2-4396-9ba.firebasestorage.app/o/Portfolio%2F1772440021704.jpg?alt=media&token=101cd67b-6852-4a92-81db-29f0d6eb94cb',
+  gallery: [
+    {
+      id: 'photo-1',
+      url: 'https://firebasestorage.googleapis.com/v0/b/project-b9727ea3-0bd2-4396-9ba.firebasestorage.app/o/Portfolio%2F1725216171602.jpg?alt=media&token=db040920-a3e6-4e2f-9e5d-b11fca65138f',
+      title: 'Executive Headshot',
+      subtitle: 'Finance Analyst & Junior Management Accountant',
+      category: 'Profile'
+    },
+    {
+      id: 'photo-2',
+      url: 'https://firebasestorage.googleapis.com/v0/b/project-b9727ea3-0bd2-4396-9ba.firebasestorage.app/o/Portfolio%2F1766183020815.jpg?alt=media&token=9aba4f5f-4c8f-4dac-a0c0-d8f3b0b5b313',
+      title: 'Professional Advisory & Practice',
+      subtitle: 'Financial Statements, VAT Filings & ERP Systems',
+      category: 'Practice'
+    },
+    {
+      id: 'photo-3',
+      url: 'https://firebasestorage.googleapis.com/v0/b/project-b9727ea3-0bd2-4396-9ba.firebasestorage.app/o/Portfolio%2F1766312020783.jpg?alt=media&token=9ffc717b-4568-4a9a-82a5-4abcd677b5f8',
+      title: 'FinTech & Software Architecture',
+      subtitle: 'Deploying Finelor.app, SaveMoneyHub & n8n Data Pipelines',
+      category: 'FinTech'
+    },
+    {
+      id: 'photo-4',
+      url: 'https://firebasestorage.googleapis.com/v0/b/project-b9727ea3-0bd2-4396-9ba.firebasestorage.app/o/Portfolio%2F1772440021704.jpg?alt=media&token=101cd67b-6852-4a92-81db-29f0d6eb94cb',
+      title: 'Academic & Professional Journey',
+      subtitle: 'BSc (Hons) 1st Class Accounting & Finance | ACCA',
+      category: 'Academic'
+    }
+  ]
+};
+
 export const PERSONAL_INFO = {
   name: 'Rabins Bhusal',
+  avatarUrl: PORTFOLIO_PHOTOS.headshot,
   title: 'Finance Analyst & Junior Management Accountant',
   degrees: 'First-Class BSc (Hons) Accounting and Finance | ACCA Candidate',
   email: 'rabinsbhusal25@gmail.com',

@@ -1,0 +1,57 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 64 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+    
+    // savedModel schema verification
+    function isValidSavedModel(data) {
+      return data.keys().hasAll(['uid', 'title', 'revenue', 'cogsPercent', 'opexPercent', 'capex', 'depreciation', 'taxRate', 'createdAt', 'updatedAt'])
+        && data.keys().size() == 10
+        && data.uid == request.auth.uid
+        && data.title is string && data.title.size() >= 1 && data.title.size() <= 100
+        && data.revenue is number
+        && data.cogsPercent is number
+        && data.opexPercent is number
+        && data.capex is number
+        && data.depreciation is number
+        && data.taxRate is number
+        && data.createdAt is string
+        && data.updatedAt is string;
+    }
+    
+    // syncLog schema verification
+    function isValidSyncLog(data) {
+      return data.keys().hasAll(['uid', 'actionType', 'details', 'timestamp'])
+        && data.keys().size() == 4
+        && data.uid == request.auth.uid
+        && data.actionType is string && data.actionType.matches('^(SHEETS_EXPORT|GMAIL_SEND|DOCS_EXPORT|CALENDAR_CREATE)$')
+        && data.details is string && data.details.size() <= 1000
+        && data.timestamp is string;
+    }
+
+    // Rules for saved_models
+    match /saved_models/{modelId} {
+      allow get: if isAuthenticated() && resource.data.uid == request.auth.uid;
+      allow list: if isAuthenticated() && resource.data.uid == request.auth.uid;
+      allow create: if isAuthenticated() && isValidId(modelId) && isValidSavedModel(request.resource.data);
+      allow update: if isAuthenticated() && isValidId(modelId) && resource.data.uid == request.auth.uid && isValidSavedModel(request.resource.data) && request.resource.data.uid == resource.data.uid;
+      allow delete: if isAuthenticated() && resource.data.uid == request.auth.uid;
+    }
+    
+    // Rules for sync_logs
+    match /sync_logs/{logId} {
+      allow get: if isAuthenticated() && resource.data.uid == request.auth.uid;
+      allow list: if isAuthenticated() && resource.data.uid == request.auth.uid;
+      allow create: if isAuthenticated() && isValidId(logId) && isValidSyncLog(request.resource.data);
+      allow update: if false; // Logs are immutable!
+      allow delete: if isAuthenticated() && resource.data.uid == request.auth.uid;
+    }
+  }
+}

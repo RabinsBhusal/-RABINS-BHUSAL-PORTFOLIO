@@ -13,7 +13,7 @@ import {
   Percent,
   CheckCircle2
 } from 'lucide-react';
-import { PERSONAL_INFO } from '../data/portfolioData';
+import { PERSONAL_INFO, PORTFOLIO_PHOTOS } from '../data/portfolioData';
 
 interface HeroProps {
   onOpenCV: () => void;
@@ -77,9 +77,17 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCV }) => {
 
       {/* Main Hero Content */}
       <div className="max-w-4xl mx-auto text-center z-10">
-        {/* Status Pill */}
-        <div className="reveal inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-300 text-xs font-medium mb-6 backdrop-blur-sm shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+        {/* Status Pill with Photo */}
+        <div className="reveal inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-neutral-900/90 border border-neutral-800 text-neutral-300 text-xs font-medium mb-6 backdrop-blur-sm shadow-md hover:border-emerald-500/40 transition-colors">
+          <div className="relative w-6 h-6 rounded-full overflow-hidden border border-emerald-500/50 shrink-0">
+            <img
+              src={PORTFOLIO_PHOTOS.headshot}
+              alt={PERSONAL_INFO.name}
+              referrerPolicy="no-referrer"
+              className="w-full h-full object-cover"
+            />
+            <span className="absolute bottom-0 right-0 w-1.5 h-1.5 rounded-full bg-emerald-400 ring-1 ring-neutral-900" />
+          </div>
           <span className="font-mono text-emerald-400 font-bold">{PERSONAL_INFO.name}</span>
           <span className="text-neutral-600">•</span>
           <span>Junior Management Accountant</span>

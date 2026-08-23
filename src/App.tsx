@@ -15,6 +15,8 @@ import { CertificationsAndEducation } from './components/CertificationsAndEducat
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { CVModal } from './components/CVModal';
+import { GeminiChatbot } from './components/GeminiChatbot';
+import { SectionNavigator } from './components/SectionNavigator';
 import { useParallaxAndReveals } from './hooks/useParallaxAndReveals';
 
 export default function App() {
@@ -71,6 +73,12 @@ export default function App() {
         isOpen={isCVModalOpen}
         onClose={() => setIsCVModalOpen(false)}
       />
+
+      {/* Interactive Context-Aware Gemini AI Advisor Chatbot */}
+      <GeminiChatbot />
+
+      {/* Floating Section Quick Navigation (Up/Down arrows and section indicators) */}
+      <SectionNavigator />
     </div>
   );
 }

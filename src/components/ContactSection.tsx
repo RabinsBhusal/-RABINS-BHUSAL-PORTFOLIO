@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PERSONAL_INFO } from '../data/portfolioData';
+import { PERSONAL_INFO, PORTFOLIO_PHOTOS } from '../data/portfolioData';
 import {
   Mail,
   Phone,
@@ -48,6 +48,31 @@ export const ContactSection: React.FC = () => {
             <p className="text-neutral-400 text-sm sm:text-base mt-2">
               Available for full-time finance analyst, junior management accountant roles, ERP implementations, and UK accountancy consulting.
             </p>
+          </div>
+
+          {/* Profile Card with Photo */}
+          <div className="p-4 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-neutral-900/60 to-neutral-900/60 border border-emerald-500/20 flex items-center gap-4">
+            <div className="relative w-14 h-14 rounded-xl overflow-hidden border border-emerald-500/40 shrink-0">
+              <img
+                src={PORTFOLIO_PHOTOS.portrait}
+                alt={PERSONAL_INFO.name}
+                referrerPolicy="no-referrer"
+                className="w-full h-full object-cover"
+              />
+              <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-neutral-950" />
+            </div>
+            <div>
+              <h4 className="text-sm font-display font-bold text-neutral-100">
+                {PERSONAL_INFO.name}
+              </h4>
+              <p className="text-xs text-neutral-400 font-mono">
+                Junior Management Accountant & Finance Analyst
+              </p>
+              <div className="text-[11px] text-emerald-400 font-mono mt-0.5 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                Available for UK permanent & contract positions
+              </div>
+            </div>
           </div>
 
           <div className="space-y-4">

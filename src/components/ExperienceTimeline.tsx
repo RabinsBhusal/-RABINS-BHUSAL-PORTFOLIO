@@ -50,19 +50,26 @@ export const ExperienceTimeline: React.FC = () => {
 
         {/* Filter Pills */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              onClick={() => setFilterCategory(cat)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-colors ${
-                filterCategory === cat
-                  ? 'bg-emerald-500 text-neutral-950 font-bold'
-                  : 'bg-neutral-900 text-neutral-400 border border-neutral-800 hover:text-neutral-200'
-              }`}
-            >
-              {cat}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const count = cat === 'All' ? EXPERIENCES.length : EXPERIENCES.filter((e) => e.category === cat).length;
+            const isActive = filterCategory === cat;
+            return (
+              <button
+                key={cat}
+                onClick={() => setFilterCategory(cat)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-mono whitespace-nowrap transition-colors flex items-center gap-1.5 cursor-pointer ${
+                  isActive
+                    ? 'bg-emerald-500 text-neutral-950 font-bold'
+                    : 'bg-neutral-900 text-neutral-400 border border-neutral-800 hover:text-neutral-200'
+                }`}
+              >
+                <span>{cat}</span>
+                <span className={`px-1 rounded text-[10px] ${isActive ? 'bg-neutral-950/20 text-neutral-950' : 'bg-neutral-800 text-neutral-400'}`}>
+                  {count}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -72,7 +79,7 @@ export const ExperienceTimeline: React.FC = () => {
           const isExpanded = expandedItems[exp.id] ?? true;
 
           return (
-            <div key={exp.id} className="reveal relative group">
+            <div key={exp.id} className="reveal is-visible relative group">
               {/* Timeline Node Icon */}
               <div
                 className={`absolute -left-[31px] sm:-left-[39px] top-1.5 w-6 h-6 rounded-full border flex items-center justify-center transition-colors ${
