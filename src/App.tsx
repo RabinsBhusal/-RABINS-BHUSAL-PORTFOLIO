@@ -45,7 +45,9 @@ export default function App() {
         />
 
         {/* Work Experience & Accounting Practice Timeline */}
-        <ExperienceTimeline />
+        <ExperienceTimeline
+          onOpenCV={() => setIsCVModalOpen(true)}
+        />
 
         {/* LinkedIn Featured Projects (Finelor, SaveMoneyHub, Indigenously Infused, etc.) */}
         <FinanceProjects />
