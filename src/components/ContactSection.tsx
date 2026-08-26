@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PERSONAL_INFO, PORTFOLIO_PHOTOS } from '../data/portfolioData';
+import { AppointmentCalendar } from './AppointmentCalendar';
 import {
   Mail,
   Phone,
@@ -12,13 +13,16 @@ import {
   MessageSquare,
   ShieldCheck,
   Copy,
-  Check
+  Check,
+  Video,
+  Clock
 } from 'lucide-react';
 
 export const ContactSection: React.FC = () => {
   const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [service, setService] = useState('Management Accounts & Reporting');
+  const [activeTab, setActiveTab] = useState<'message' | 'calendar'>('calendar'); // Default to calendar for highest engagement
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(PERSONAL_INFO.email);
@@ -130,93 +134,125 @@ export const ContactSection: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Column: Inquiry Form */}
-        <div className="lg:col-span-7">
-          <div className="reveal rounded-3xl bg-neutral-900/80 border border-neutral-800 p-8">
-            <h3 className="text-xl font-display font-bold text-neutral-100 mb-2">
-              Send a Direct Message
-            </h3>
-            <p className="text-xs font-mono text-neutral-400 mb-6">
-              Recruitment inquiries, financial modeling consulting, or accounting advisory.
-            </p>
-
-            {submitted ? (
-              <div className="p-6 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-center space-y-3">
-                <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
-                <h4 className="text-base font-display font-bold text-neutral-100">
-                  Message Dispatched Successfully
-                </h4>
-                <p className="text-xs text-neutral-300">
-                  Thank you for reaching out. Rabins will respond directly to your email shortly.
-                </p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-xs font-mono text-neutral-300 mb-1.5">
-                      Your Name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Sarah Jenkins"
-                      className="w-full px-4 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500 transition-colors"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-mono text-neutral-300 mb-1.5">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="name@company.com"
-                      className="w-full px-4 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500 transition-colors"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-neutral-300 mb-1.5">
-                    Engagement Category
-                  </label>
-                  <select
-                    value={service}
-                    onChange={(e) => setService(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500 transition-colors font-sans"
-                  >
-                    <option>Permanent Finance / Accounting Opportunity</option>
-                    <option>Management Accounts & Reporting</option>
-                    <option>Statutory Accounts & UK Tax Advisory</option>
-                    <option>ERP / Financial Systems Implementation (Unit4/Xero)</option>
-                    <option>Financial Modeling / Finelor & SaveMoneyHub Advisory</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono text-neutral-300 mb-1.5">
-                    Message Details
-                  </label>
-                  <textarea
-                    rows={4}
-                    required
-                    placeholder="Provide details regarding the role, organisation, or project requirements..."
-                    className="w-full px-4 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500 transition-colors resize-none"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-sm transition-all shadow-md shadow-emerald-500/20"
-                >
-                  <Send className="w-4 h-4" />
-                  <span>Transmit Inquiry</span>
-                </button>
-              </form>
-            )}
+        {/* Right Column: Interactive Scheduling or Direct Inquiry Form */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* Form Tabs Navigator */}
+          <div className="reveal flex p-1.5 rounded-2xl bg-neutral-900 border border-neutral-800">
+            <button
+              onClick={() => setActiveTab('calendar')}
+              className={`flex-1 flex items-center justify-center gap-2.5 py-3.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+                activeTab === 'calendar'
+                  ? 'bg-emerald-500 text-neutral-950 shadow-sm'
+                  : 'text-neutral-400 hover:text-neutral-200'
+              }`}
+            >
+              <Calendar className="w-4 h-4" />
+              <span>Instant Calendar Booking</span>
+            </button>
+            <button
+              onClick={() => setActiveTab('message')}
+              className={`flex-1 flex items-center justify-center gap-2.5 py-3.5 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer ${
+                activeTab === 'message'
+                  ? 'bg-emerald-500 text-neutral-950 shadow-sm'
+                  : 'text-neutral-400 hover:text-neutral-200'
+              }`}
+            >
+              <Send className="w-4 h-4" />
+              <span>Submit Direct Message</span>
+            </button>
           </div>
+
+          {activeTab === 'calendar' ? (
+            <div className="reveal">
+              <AppointmentCalendar />
+            </div>
+          ) : (
+            <div className="reveal rounded-3xl bg-neutral-900/80 border border-neutral-800 p-8">
+              <h3 className="text-xl font-display font-bold text-neutral-100 mb-2">
+                Send a Direct Message
+              </h3>
+              <p className="text-xs font-mono text-neutral-400 mb-6">
+                Recruitment inquiries, financial modeling consulting, or accounting advisory.
+              </p>
+
+              {submitted ? (
+                <div className="p-6 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 text-center space-y-3">
+                  <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
+                  <h4 className="text-base font-display font-bold text-neutral-100">
+                    Message Dispatched Successfully
+                  </h4>
+                  <p className="text-xs text-neutral-300">
+                    Thank you for reaching out. Rabins will respond directly to your email shortly.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-mono text-neutral-300 mb-1.5">
+                        Your Name
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="e.g. Sarah Jenkins"
+                        className="w-full px-4 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500 transition-colors"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-mono text-neutral-300 mb-1.5">
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        required
+                        placeholder="name@company.com"
+                        className="w-full px-4 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500 transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono text-neutral-300 mb-1.5">
+                      Engagement Category
+                    </label>
+                    <select
+                      value={service}
+                      onChange={(e) => setService(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500 transition-colors font-sans"
+                    >
+                      <option>Permanent Finance / Accounting Opportunity</option>
+                      <option>Management Accounts & Reporting</option>
+                      <option>Statutory Accounts & UK Tax Advisory</option>
+                      <option>ERP / Financial Systems Implementation (Unit4/Xero)</option>
+                      <option>Financial Modeling / Finelor & SaveMoneyHub Advisory</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-mono text-neutral-300 mb-1.5">
+                      Message Details
+                    </label>
+                    <textarea
+                      rows={4}
+                      required
+                      placeholder="Provide details regarding the role, organisation, or project requirements..."
+                      className="w-full px-4 py-2.5 rounded-xl bg-neutral-950 border border-neutral-800 text-sm text-neutral-100 focus:outline-none focus:border-emerald-500 transition-colors resize-none"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold text-sm transition-all shadow-md shadow-emerald-500/20"
+                  >
+                    <Send className="w-4 h-4" />
+                    <span>Transmit Inquiry</span>
+                  </button>
+                </form>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </section>
